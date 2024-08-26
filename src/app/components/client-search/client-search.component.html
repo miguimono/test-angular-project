@@ -1,0 +1,84 @@
+<!-- <div class="container mt-5">
+  <h2>Consulta de Cliente</h2>
+  <form [formGroup]="clientForm" (ngSubmit)="onSearch()">
+    <div class="form-group">
+      <label for="documentType">Tipo de Documento</label>
+      <select
+        id="documentType"
+        class="form-control"
+        formControlName="documentType"
+      >
+        <option value="" disabled selected>Seleccione...</option>
+        <option value="C">Cédula de Ciudadanía</option>
+        <option value="P">Pasaporte</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="documentNumber">Número de Documento</label>
+      <input
+        type="number"
+        id="documentNumber"
+        class="form-control"
+        formControlName="documentNumber"
+        placeholder="Ingrese el número de documento"
+        (input)="formatNumber($event)"
+      />
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="!clientForm.valid"
+    >
+      Buscar
+    </button>
+  </form>
+</div> -->
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Consulta de Cliente</h5>
+          <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="documentType" class="form-label"
+                >Tipo de Documento</label
+              >
+              <select
+                id="documentType"
+                class="form-select"
+                formControlName="documentType"
+              >
+                <option value="" disabled selected>
+                  Seleccione un tipo de documento
+                </option>
+                <option value="C">Cédula de Ciudadanía</option>
+                <option value="P">Pasaporte</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="documentNumber" class="form-label"
+                >Número de Documento</label
+              >
+              <input
+                type="text"
+                id="documentNumber"
+                class="form-control"
+                formControlName="documentNumber"
+                placeholder="Ej: 1.234.567.890"
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="!clientForm.valid"
+            >
+              Buscar
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
