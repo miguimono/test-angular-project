@@ -9,43 +9,8 @@ import { ClientService } from '../../service/client.service';
   styleUrls: ['./client-search.component.scss'],
 })
 export class ClientSearchComponent {
-  //   clientForm: FormGroup;
-
-  //   constructor(private fb: FormBuilder, private router: Router) {
-  //     this.clientForm = this.fb.group({
-  //       documentType: ['', Validators.required],
-  //       documentNumber: [
-  //         '',
-  //         [
-  //           Validators.required,
-  //           Validators.minLength(8),
-  //           Validators.maxLength(11),
-  //           Validators.pattern(/^\d+$/),
-  //         ],
-  //       ],
-  //     });
-  //   }
-
-  //   formatNumber(event: any) {
-  //     let inputValue = event.target.value.replace(/\D/g, '');
-  //     inputValue = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  //     this.clientForm
-  //       .get('documentNumber')
-  //       ?.setValue(inputValue, { emitEvent: false });
-  //   }
-
-  //   onSearch() {
-  //     if (this.clientForm.valid) {
-  //       const { documentType, documentNumber } = this.clientForm.value;
-  //       // Aquí debería ir la lógica para consumir el servicio si es necesario
-  //       this.router.navigate(['/summary'], {
-  //         state: { documentType, documentNumber },
-  //       });
-  //     }
-  //   }
-  // }
-
   clientForm: FormGroup;
+  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -69,11 +34,14 @@ export class ClientSearchComponent {
   onSubmit(): void {
     if (this.clientForm.valid) {
       const { documentType, documentNumber } = this.clientForm.value;
-      this.clientService
-        .getClientInfo(documentType, documentNumber)
-        .subscribe((data) => {
+      this.clientService.getClientInfo(documentType, documentNumber).subscribe({
+        next: (data) => {
           this.router.navigate(['/summary'], { state: data });
-        });
+        },
+        error: (error) => {
+          this.errorMessage = error.message;
+        },
+      });
     }
   }
 }
